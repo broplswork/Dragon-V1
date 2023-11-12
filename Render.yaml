@@ -1,0 +1,8 @@
+# render.yaml
+
+services:
+  - type: web
+    name: my-game-site
+    envVars:
+      - key: NODE_ENV
+        value: production
