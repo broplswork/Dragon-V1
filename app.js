@@ -49,4 +49,14 @@ app.post('/games/:id/guess', (req, res) => {
         if (userGuess === secretNumber) {
             res.send(`Congratulations! You guessed the correct number (${secretNumber}) in ${req.body.userGuess} tries.`);
         } else {
-            res
+            res.send(`Sorry, the correct number was ${secretNumber}. Try again!`);
+        }
+    } else {
+        res.status(404).send('Game not found');
+    }
+});
+
+// Start the server
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on port ${port}`);
+});
