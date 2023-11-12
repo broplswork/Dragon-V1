@@ -2,13 +2,14 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const proxy = require('express-http-proxy');
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Sample game data
 const games = [
     { id: 1, name: 'Guessing Game', description: 'Try to guess the correct number between 1 and 10' },
-    { id: 2, name: 'Roblox', description: 'Play Roblox', link: 'https://now.gg/es/apps/roblox-corporation/5349/roblox.html' },
+    { id: 2, name: 'Roblox', description: 'Play Roblox', link: '/games/roblox/play' },
     // Add more games as needed
 ];
 
@@ -36,6 +37,9 @@ app.get('/games/:id', (req, res) => {
         res.status(404).send('Game not found');
     }
 });
+
+// Proxy route for Roblox
+app.use('/games/roblox/play', proxy('https://now.gg/es/apps/roblox-corporation/5349/roblox.html'));
 
 // Guessing form submission
 app.post('/games/:id/guess', (req, res) => {
