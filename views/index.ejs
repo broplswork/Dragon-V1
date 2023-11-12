@@ -10,12 +10,19 @@
 </head>
 <body>
     <h1>Welcome to the Game Site</h1>
-    
+
     <h2>Games</h2>
     <ul>
         <% games.forEach(game => { %>
             <li><a href="/games/<%= game.id %>"><%= game.name %></a></li>
         <% }); %>
     </ul>
+
+    <h2>Search Google</h2>
+    <form action="/search" method="GET">
+        <label for="searchQuery">Search: </label>
+        <input type="text" id="searchQuery" name="q" required>
+        <button type="submit">Search</button>
+    </form>
 </body>
 </html>
