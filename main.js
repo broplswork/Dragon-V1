@@ -1,3 +1,4 @@
+// public/main.js
 document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('searchForm');
   const queryInput = document.getElementById('query');
