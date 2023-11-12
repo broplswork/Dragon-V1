@@ -1,8 +1,8 @@
-
+// package.json
 {
-    "name": "game_site",
+    "name": "combined_game_site",
     "version": "1.0.0",
-    "description": "Game site with multiple games",
+    "description": "Combined game site with multiple games",
     "main": "app.js",
     "scripts": {
         "start": "node app.js"
@@ -12,6 +12,7 @@
     "license": "ISC",
     "dependencies": {
         "ejs": "^3.1.6",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "body-parser": "^1.19.0"
     }
 }
