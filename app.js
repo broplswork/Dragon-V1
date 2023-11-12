@@ -1,52 +1,49 @@
 // app.js
 const express = require('express');
-const path = require('path');
+const axios = require('axios');
+const cheerio = require('cheerio');
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-// Configuration
-const games = [
-    { id: 1, name: 'Guessing Game', description: 'Try to guess the correct number between 1 and 10' },
-    { id: 2, name: 'Roblox', description: 'Play Roblox', link: '/games/roblox/play' },
-    // Add more games as needed
-];
+app.use(express.static('public'));
+app.use(express.json());
 
-// Middleware for checking ad-blockers
-const adBlockerMiddleware = (req, res, next) => {
-    const isAdBlocked = req.query.adblock === 'true';
-    res.locals.isAdBlocked = isAdBlocked;
-    next();
-};
-
-// Set up views and static files
-app.set('views', path.join(__dirname, 'public'));
-app.set('view engine', 'html');
-app.engine('html', require('ejs').renderFile);
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(adBlockerMiddleware);
-
-// Home page
 app.get('/', (req, res) => {
-    res.render('index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
-// Proxy route for Roblox
-app.use('/games/roblox/play', (req, res) => {
-    res.redirect('https://now.gg/es/apps/roblox-corporation/5349/roblox.html');
+app.get('/search', async (req, res) => {
+  const { q } = req.query;
+  const proxyUrl = 'https://www.google.com/?safe=active&ssui=on'; // Google Search URL as the proxy
+
+  try {
+    const response = await axios.get(proxyUrl, {
+      params: {
+        q,
+      },
+    });
+
+    const results = extractResults(response.data);
+
+    res.json(results);
+  } catch (error) {
+    console.error('Error searching:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
-// Error handling for 404
-app.use((req, res, next) => {
-    res.status(404).send('Page not found');
-});
+function extractResults(html) {
+  const $ = cheerio.load(html);
+  const results = [];
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something went wrong!');
-});
+  $('div.g').each((index, element) => {
+    const title = $(element).find('h3').text();
+    results.push({ title });
+  });
 
-// Start the server
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on port ${port}`);
+  return results;
+}
+
+app.listen(PORT, () => {
+  console.log(`GODLY Proxies V4 is running on http://localhost:${PORT}`);
 });
