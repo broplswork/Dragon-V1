@@ -1,1 +1,13 @@
+/* public/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#result {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+/* Add more styles as needed */
 
