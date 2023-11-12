@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 // Sample game data
 const games = [
     { id: 1, name: 'Guessing Game', description: 'Try to guess the correct number between 1 and 10' },
+    { id: 2, name: 'Roblox', description: 'Play Roblox', link: 'https://now.gg/es/apps/roblox-corporation/5349/roblox.html' },
     // Add more games as needed
 ];
 
@@ -48,21 +49,4 @@ app.post('/games/:id/guess', (req, res) => {
         if (userGuess === secretNumber) {
             res.send(`Congratulations! You guessed the correct number (${secretNumber}) in ${req.body.userGuess} tries.`);
         } else {
-            res.send(`Sorry, the correct number was ${secretNumber}. Try again!`);
-        }
-    } else {
-        res.status(404).send('Game not found');
-    }
-});
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
-
-const games = [
-    { id: 1, name: 'Guessing Game', description: 'Try to guess the correct number between 1 and 10' },
-    { id: 2, name: 'Roblox', description: 'Play Roblox', link: 'https://now.gg/es/apps/roblox-corporation/5349/roblox.html' },
-    // Add more games as needed
-];
+            res
