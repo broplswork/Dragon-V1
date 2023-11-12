@@ -9,6 +9,14 @@
 <body>
     <h1><%= game.name %></h1>
     <p>Description: <%= game.description %></p>
+
+    <h2>Guess the Number</h2>
+    <form action="/games/<%= game.id %>/guess" method="POST">
+        <label for="guess">Enter your guess (1-10): </label>
+        <input type="number" id="guess" name="userGuess" min="1" max="10" required>
+        <button type="submit">Submit Guess</button>
+    </form>
+
     <a href="/">Back to Home</a>
 </body>
 </html>
