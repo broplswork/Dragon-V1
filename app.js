@@ -41,6 +41,19 @@ app.get('/games/:id', (req, res) => {
 // Proxy route for Roblox
 app.use('/games/roblox/play', proxy('https://now.gg/es/apps/roblox-corporation/5349/roblox.html'));
 
+// Search route
+app.get('/search', (req, res) => {
+    const query = req.query.q;
+    if (!query) {
+        res.render('search', { results: null });
+        return;
+    }
+
+    // Proxy the Google search
+    const googleProxyUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    res.render('search', { results: googleProxyUrl });
+});
+
 // Guessing form submission
 app.post('/games/:id/guess', (req, res) => {
     const gameId = parseInt(req.params.id);
