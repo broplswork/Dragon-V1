@@ -30,7 +30,7 @@ app.get('/search', async (req, res) => {
     res.json(results);
   } catch (error) {
     console.error('Error searching:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
   }
 });
 
@@ -49,3 +49,4 @@ function extractResults(html) {
 app.listen(PORT, () => {
   console.log(`GODLY Proxies V4 is running on http://localhost:${PORT}`);
 });
+
