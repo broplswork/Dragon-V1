@@ -59,3 +59,10 @@ app.post('/games/:id/guess', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+
+const games = [
+    { id: 1, name: 'Guessing Game', description: 'Try to guess the correct number between 1 and 10' },
+    { id: 2, name: 'Roblox', description: 'Play Roblox', link: 'https://now.gg/es/apps/roblox-corporation/5349/roblox.html' },
+    // Add more games as needed
+];
