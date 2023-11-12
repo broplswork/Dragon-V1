@@ -1,19 +1,22 @@
+// app.js
 const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.render('index');
 });
 
 app.get('/search', async (req, res) => {
   const { q } = req.query;
-  const proxyUrl = 'https://www.google.com/?safe=active&ssui=on'; // Google Search URL as the proxy
+  const proxyUrl = 'https://www.google.com/?safe=active&ssui=on';
 
   try {
     const response = await axios.get(proxyUrl, {
