@@ -66,4 +66,30 @@ app.get('/search', (req, res) => {
     } else {
         res.status(400).send('Invalid search engine');
     }
+});
+
+// Guessing form submission
+app.post('/games/:id/guess', (req, res) => {
+    const gameId = parseInt(req.params.id);
+    const game = games.find(g => g.id === gameId);
+
+    if (game) {
+        const secretNumber = Math.floor(Math.random() * 10) + 1;
+        const userGuess = parseInt(req.body.userGuess);
+
+        if (userGuess === secretNumber) {
+            res.send(`Congratulations! You guessed the correct number (${secretNumber}) in ${req.body.userGuess} tries.`);
+        } else {
+            res.send(`Sorry, the correct number was ${secretNumber}. Try again!`);
+        }
+    } else {
+        res.status(404).send('Game not found');
+    }
+});
+
+// Start the server
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on port ${port}`);
+});
+
 
