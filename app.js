@@ -23,7 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Home page
 app.get('/', (req, res) => {
-    res.render('index', { games });
+    const isAdBlocked = req.query.adblock === 'true';
+    res.render('index', { games, isAdBlocked });
 });
 
 // Individual game page
@@ -44,37 +45,25 @@ app.use('/games/roblox/play', proxy('https://now.gg/es/apps/roblox-corporation/5
 // Search route
 app.get('/search', (req, res) => {
     const query = req.query.q;
-    if (!query) {
+    const searchEngine = req.query.engine;
+
+    if (!query || !searchEngine) {
         res.render('search', { results: null });
         return;
     }
 
-    // Proxy the Google search
-    const googleProxyUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-    res.render('search', { results: googleProxyUrl });
-});
+    // Define the proxy URL for each search engine
+    const proxyUrlMap = {
+        google: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+        bing: `https://www.bing.com/search?q=${encodeURIComponent(query)}`,
+        // Add more search engines and their proxy URLs as needed
+    };
 
-// Guessing form submission
-app.post('/games/:id/guess', (req, res) => {
-    const gameId = parseInt(req.params.id);
-    const game = games.find(g => g.id === gameId);
-
-    if (game) {
-        const secretNumber = Math.floor(Math.random() * 10) + 1;
-        const userGuess = parseInt(req.body.userGuess);
-
-        if (userGuess === secretNumber) {
-            res.send(`Congratulations! You guessed the correct number (${secretNumber}) in ${req.body.userGuess} tries.`);
-        } else {
-            res.send(`Sorry, the correct number was ${secretNumber}. Try again!`);
-        }
+    // Proxy the search request
+    const proxyUrl = proxyUrlMap[searchEngine];
+    if (proxyUrl) {
+        res.render('search', { results: proxyUrl });
     } else {
-        res.status(404).send('Game not found');
+        res.status(400).send('Invalid search engine');
     }
-});
-
-// Start the server
-app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running on port ${port}`);
-});
 
