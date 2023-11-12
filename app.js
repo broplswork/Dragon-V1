@@ -5,7 +5,6 @@ const cheerio = require('cheerio');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Set EJS as the view engine
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.json());
@@ -49,4 +48,3 @@ function extractResults(html) {
 app.listen(PORT, () => {
   console.log(`GODLY Proxies V4 is running on http://localhost:${PORT}`);
 });
-
