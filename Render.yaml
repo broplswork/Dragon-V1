@@ -1,8 +1,8 @@
-# render.yaml
-
 services:
-  - type: web
-    name: my-game-site
+  - name: web
+    env: {}
+    plan: free
+    buildCommand: npm install -g serve && serve -s .
     envVars:
-      - key: NODE_ENV
-        value: production
+      - key: RENDER
+        value: true
