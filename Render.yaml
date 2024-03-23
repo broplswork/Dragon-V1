@@ -2,7 +2,7 @@ services:
   - name: web
     env: {}
     plan: free
-    buildCommand: npm install -g serve && serve -s .
+    buildCommand: npm install && npm start.
     envVars:
       - key: RENDER
         value: true
