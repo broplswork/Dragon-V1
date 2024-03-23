@@ -1,44 +1,77 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(45deg, #10285C, black); /* Background gradient from #10285C to black at 45 degrees */
-    cursor: url('green_cursor.png'), auto; /* Green cursor */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  #uv-form {
-    position: relative;
-    width: 250px;
-    height: 250px;
-    background-color: rgba(255, 255, 255, 0.2); /* Darkened white background */
-    border-radius: 20px; /* Rounded square */
-    padding: 20px;
-    text-align: center;
-    color: white; /* Text color set to white */
-    transition: box-shadow 0.3s ease; /* Smooth transition for box-shadow */
-  }
-  
- #uv-address {
-    width: calc(100% - 40px);
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    outline: none;
-    text-align: center;
-    background-color: #000000; /* Dark mode input background color */
-    color: white; /* Text color set to white */
-  }
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(45deg, #10285C, black);
+  /* Background gradient from #10285C to black at 45 degrees */
+  cursor: url('green_cursor.png'), auto;
+  /* Green cursor */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
+#box-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  #search-submit:hover {
-    background-color: #555; /* Darker hover color */
-  }
+.title {
+  margin: 0 0 20px; /* Added margin to bottom */
+  color: white; /* Text color set to white */
+}
 
-  .title {
-    margin: 0;
-  }
+#search-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Darkened white background */
+  border-radius: 20px;
+  /* Rounded square */
+  padding: 20px;
+  text-align: center;
+  color: white;
+  /* Text color set to white */
+  transition: box-shadow 0.3s ease;
+  /* Smooth transition for box-shadow */
+}
+#uv-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#uv-address {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  outline: none;
+  text-align: center;
+  background-color: #000000;
+  /* Dark mode input background color */
+  color: white;
+  /* Text color set to white */
+}
+
+#uv-form button {
+  width: calc(100% - 40px);
+  padding: 10px;
+  background-color: #000000;
+  /* Dark mode button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+#uv-form button:hover {
+  background-color: #555;
+  /* Darker hover color */
+}
