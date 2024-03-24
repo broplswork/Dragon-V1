@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(45deg, #10285C, black); /* Background gradient from #10285C to black at 45 degrees */
+    background: linear-gradient(45deg, #10285C, black);
     cursor: url('green_cursor.png'), auto; /* Green cursor */
     display: flex;
     justify-content: center;
