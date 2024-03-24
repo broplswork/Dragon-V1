@@ -1,8 +1,0 @@
-services:
-  - name: web
-    env: {}
-    plan: free
-    buildCommand: npm install && npm start.
-    envVars:
-      - key: RENDER
-        value: true
