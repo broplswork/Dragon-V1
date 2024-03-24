@@ -17,7 +17,8 @@ body {
   overflow: hidden;  
 }
 
-#uv-address {
+#uv-form {
+  position: relative;
   width: 600px;
   padding: 15px;
   border-radius: 5px;
@@ -28,6 +29,33 @@ body {
   text-align: center;
   background-color: white;
   color: black; 
+}
+
+#uv-address {
+  width: calc(100% - 40px);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  outline: none;
+  text-align: center;
+  background-color: #000000; /* Dark mode input background color */
+  color: white; /* Text color set to white */
+}
+
+#uv-form button {
+  width: calc(100% - 40px);
+  padding: 10px;
+  background-color: #000000; /* Dark mode button background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+#uv-form button:hover {
+  background-color: #555; /* Darker hover color */
 }
 
 h1 {
