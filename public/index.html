@@ -21,7 +21,10 @@
     const searchContainer = document.getElementById("uv-form");
     const searchInput = document.getElementById("uv-address");
 
+    searchContainer.addEventListener("submit", function (event) {
+        event.preventDefault(); 
     function updateCursor(event) {
+      
       const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
       const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
       const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
