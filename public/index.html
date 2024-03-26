@@ -1,24 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hell V1</title> <!-- Changed the title to "Hell V1" -->
-<link rel="stylesheet" href="/assets/css/index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hell V1</title>
+  <link rel="stylesheet" href="assets/css/index.css" />
+  <style>
+    /* Add CSS styles here */
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    .header {
+      background-color: transparent;
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 18px;
+      transition: color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header a:hover {
+      color: #7289da;
+    }
+
+    .header a span {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.2); /* Adjust opacity as needed */
+    }
+
+    .header a img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+    }
+
+    .title {
+      text-align: center;
+      margin-top: 20px; /* Adjust spacing from header */
+    }
+
+    .header {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px; /* Adjust spacing from header */
+    }
+
+    .header a {
+      margin: 0 10px;
+    }
+
+  </style>
 </head>
+
 <body>
+  <div class="container">
+    <div class="header">
+      <a href="apps.html"><img src="public/icons/apps.png" alt="apps Icon" /><span>Apps</span></a>
+      <a href="games"><img src="public/icons/games.png" alt="Games Icon" /><span>Games</span></a>
+      <a href="settings.html"><img src="public/icons/settings.png" alt="Settings Icon" /><span>Settings</span></a>
+    </div>
+    <div class="header">
+      <h1 class="title">Hell V1</h1>
+    </div>
+    <form id="uv-form">
+      <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
+      <input id="uv-address" type="text" placeholder="Enter a URL or Search">
+      <button type="submit">Search</button>
+    </form>
+  </div>
 
-<div class="box-container">
-  <h1 class="title">Hell V1</h1> <!-- Moved the title above the search bar -->
-  <form id="uv-form">
-    <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
-    <input id="uv-address" type="text" placeholder="Enter a URL or Search">
-    <button type="submit">Search</button>
-  </form>
-</div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
     const searchContainer = document.getElementById("uv-form");
     const searchInput = document.getElementById("uv-address");
 
@@ -57,11 +136,12 @@
       animationFrameId = requestAnimationFrame(() => updateCursor(event));
     });
   });
-</script>
+  </script>
 
-<script src="/uv/uv.bundle.js"></script>
-<script src="/uv/uv.config.js"></script>
-<script src="/assets/js/index.js"></script>
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+  <script src="/assets/js/index.js"></script>
 
 </body>
+
 </html>
