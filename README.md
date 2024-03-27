@@ -20,5 +20,5 @@ Hell is not static so u cant deploy it on vercel, github page cloudfare pages an
 
 
 
-# and any other website holders not static make sure u join the discord server for more.
-discord server: https://discord.gg/nGb5nHyey4
+**and any other website holders not static make sure u join the discord server for more.
+discord server: https://discord.gg/nGb5nHyey4**
