@@ -1,10 +1,10 @@
-# WELCOME TO HELL YALL
-Hell is not static so u cant deploy it on vercel, github page cloudfare pages and etc.
+# WELCOME TO Dragon Proxy
+Dragonn Proxy is not static so u cant deploy it on vercel, github page cloudfare pages and etc.
 
 
 
 
-**Hell is available in these hosting sites**
+**Dragon Proxy is available in these hosting sites**
 # Deployments
 - <a href="https://render.com" style="border-radius: 20px; display: inline-block; overflow: hidden;">
   <img border="0" alt="Render Deploy" src="https://imgtr.ee/images/2024/03/25/69f39403282546a97df46ebfb50e9c2a.th.png" width="100" height="100" style="border-radius: 10px;">
