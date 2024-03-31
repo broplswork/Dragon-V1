@@ -1,21 +1,11 @@
+/* Add CSS styles here */
 html, body {
   margin: 0;
   padding: 0;
-}
-
-html, body {
   width: 100%;
   height: 100%;
+  background-color: black; /* Set background color to black */
   overflow: hidden;
-}
-
-body {
-  background: url('https://media.discordapp.net/attachments/1098316107716251920/1222719592548405298/dg7codf-d2ff431a-45c7-4e86-9afa-8d745b4390b3.png?ex=66173d5b&is=6604c85b&hm=378788277547ec038bdf556f265100fd18d5c6718eea992cf203f86c9e1ec3ef&=&format=webp&quality=lossless&width=525&height=525') no-repeat center center fixed;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .container {
@@ -67,59 +57,3 @@ button {
 button:hover {
   background-color: #148f77;
 }
-
-.header {
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.header a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #fff;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.header a:hover {
-  color: #1abc9c;
-}
-
-.header a img {
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
-}
-
-#uv-form h1 {
-  display: none;
-}
-
-.header {
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.header a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #fff;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-
-.header a:hover {
-  color: #1abc9c;
-}
-
-.header a img {
-  width: 30px;
-  height: 30px;
-  margin-right: 5px;
-}
-
-
