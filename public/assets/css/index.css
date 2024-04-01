@@ -1,25 +1,28 @@
-/* Add CSS styles here */
-html, body {
+body, html {
   margin: 0;
   padding: 0;
-  width: 100%;
   height: 100%;
-  background-color: black; /* Set background color to black */
-  overflow: hidden;
 }
 
 .container {
+  position: relative; /* Ensure position relative */
+  z-index: 1; /* Ensure the content is above particles */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#particles-js {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: -1; /* Ensure the particles are behind other content */
+  z-index: -1; /* Ensure particles are behind other content */
 }
+
 .title {
     text-align: center;
     margin-top: 20px;
