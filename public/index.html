@@ -79,7 +79,7 @@
 </head>
 
 <body>
-  <div class="container">
+    <div class="container">
     <div id="particles-js"></div> <!-- Move this line above the title -->
     <h1 class="title">Dragon V1</h1>
     <div class="header">
@@ -94,8 +94,6 @@
     </form>
 </div>
 
-  <script src="particles.js"></script> <!-- Include particles.js -->
-  <script src="public/app.js"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -142,6 +140,14 @@
   <script src="/uv/uv.bundle.js"></script>
   <script src="/uv/uv.config.js"></script>
   <script src="/assets/js/index.js"></script>
+
+  <script src="particles.js"></script> <!-- Include particles.js -->
+  <script>
+    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
+    particlesJS.load('particles-js', 'particles.json', function() {
+      console.log('callback - particles.js config loaded');
+    });
+  </script>
 
 </body>
 
