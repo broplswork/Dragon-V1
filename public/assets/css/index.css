@@ -9,14 +9,17 @@ html, body {
 }
 
 .container {
-    position: relative; /* Add this line to make it the reference point for positioning */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Center vertically */
-    height: 100%; 
-  }
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: -1; /* Ensure the particles are behind other content */
+}
 .title {
     text-align: center;
     margin-top: 20px;
