@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +76,6 @@
     }
   </style>
 </head>
-
 <body>
   <div id="particles-js"></div> <!-- Move this line above the title -->
   <div class="container">
@@ -92,10 +90,32 @@
       <input id="uv-address" type="text" placeholder="Enter a URL or Search">
       <button type="submit">Search</button>
     </form>
+    <!-- Add background image button -->
+    <button id="background-btn">Download Background Image</button>
   </div>
 
   <script>
+    // Function to handle setting background image from file input
+    function setBackgroundImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.body.style.backgroundImage = `url('${e.target.result}')`;
+          // Store the background image URL in local storage
+          localStorage.setItem('backgroundImage', e.target.result);
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+      // Check if there's a background image stored in local storage
+      const storedBackgroundImage = localStorage.getItem('backgroundImage');
+      if (storedBackgroundImage) {
+        document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
+      }
+
       const searchContainer = document.getElementById("uv-form");
       const searchInput = document.getElementById("uv-address");
 
@@ -133,6 +153,12 @@
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         animationFrameId = requestAnimationFrame(() => updateCursor(event));
       });
+
+      // Add event listener for file input change
+      document.getElementById('background-btn').addEventListener('click', function() {
+        document.getElementById('file-input').click();
+      });
+      document.getElementById('file-input').addEventListener('change', setBackgroundImage);
     });
   </script>
 
@@ -140,14 +166,7 @@
   <script src="/uv/uv.config.js"></script>
   <script src="/assets/js/index.js"></script>
 
-  <script src="particles.js"></script> <!-- Include particles.js -->
-  <script>
-    /* particlesJS.load(@dom-id, @path-json, @callback (optional)); */
-    particlesJS.load('particles-js', 'particles.json', function() {
-      console.log('callback - particles.js config loaded');
-    });
-  </script>
-
+  <!-- Hidden file input for selecting background image -->
+  <input type="file" id="file-input" accept="image/*" style="display: none;">
 </body>
-
 </html>
