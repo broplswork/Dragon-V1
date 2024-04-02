@@ -24,4 +24,4 @@ Dragonn Proxy is not static so u cant deploy it on vercel, github page cloudfare
 discord server: https://discord.gg/nGb5nHyey4**
 
 # Site Updates 24/7
-**we know that the logo in the site is not working the devs are working on it.**
+**we might remove the logo because it is not working.**
