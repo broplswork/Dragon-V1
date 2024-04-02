@@ -85,20 +85,13 @@
       border: none;
       border-radius: 5px;
       padding: 8px 16px;
-      font-size: 12px; /* Adjust font size */
+      font-size: 18px; /* Adjust font size */
       cursor: pointer;
       transition: background-color 0.3s;
-      display: flex; /* Make button a flex container */
-      align-items: center; /* Center contents vertically */
     }
 
     #background-btn:hover {
       background-color: #148f77;
-    }
-
-    /* Style for the download icon */
-    #background-btn i {
-      margin-right: 5px; /* Adjust spacing between icon and text */
     }
   </style>
 </head>
@@ -126,9 +119,7 @@
     <button type="submit">Search</button>
   </form>
   <!-- Add background image button -->
-  <button id="background-btn">
-    <i class="fas fa-download"></i> Download Background Image
-  </button>
+  <button id="background-btn">Download Background Image</button>
 </div>
 <script>
   // Function to handle setting background image from file input
@@ -150,39 +141,6 @@
     if (storedBackgroundImage) {
       document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
     }
-    const searchContainer = document.getElementById("uv-form");
-    const searchInput = document.getElementById("uv-address");
-
-    function updateCursor(event) {
-      const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
-      const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
-      const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
-      const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
-      const distance = Math.min(dx, dy);
-      const maxDistance = 50; // Adjust the maximum distance for glow effect
-      let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
-      intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
-      const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
-      searchContainer.style.boxShadow = `0 0 ${intensity}px rgba(255, 255, 255, ${glowOpacity})`; // Adjusted glow color with opacity
-      // Change cursor to crosshair when hovering over the search input
-      if (event.target === searchInput || searchContainer.contains(event.target)) {
-        document.body.style.cursor = "crosshair";
-        searchContainer.style.boxShadow = "0 0 20px rgba(255, 255, 255, 1)"; // Set max brightness when cursor is inside the container
-      } else {
-        document.body.style.cursor = "url('green_cursor.png'), auto";
-      }
-    }
-    let animationFrameId;
-
-    function animateCursor() {
-      animationFrameId = requestAnimationFrame(animateCursor);
-      updateCursor(event);
-    }
-    animateCursor();
-    document.addEventListener('mousemove', function(event) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => updateCursor(event));
-    });
     // Add event listener for file input change
     document.getElementById('background-btn').addEventListener('click', function() {
       document.getElementById('file-input').click();
