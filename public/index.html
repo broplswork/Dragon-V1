@@ -80,18 +80,24 @@
 
     /* Style for the download button */
     #background-btn {
-      background-color: #1abc9c;
       color: white;
       border: none;
       border-radius: 5px;
-      padding: 8px 12px; /* Adjust padding */
+      padding: 5px 10px; /* Adjust padding */
       font-size: 14px; /* Adjust font size */
       cursor: pointer;
+      background-color: #1abc9c; /* Button background color */
       transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
     }
 
     #background-btn:hover {
       background-color: #148f77;
+    }
+
+    #background-btn img {
+      margin-right: 5px; /* Adjust icon spacing */
     }
   </style>
 </head>
@@ -118,8 +124,11 @@
     <input id="uv-address" type="text" placeholder="Enter a URL or Search">
     <button type="submit">Search</button>
   </form>
-  <!-- Add background image button -->
-  <button id="background-btn">Download Background Image</button>
+  <!-- Add background image button with download icon -->
+  <button id="background-btn">
+    <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
+    Download Background Image
+  </button>
 </div>
 <script>
   // Function to handle setting background image from file input
