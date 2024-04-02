@@ -1,172 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dragon V1</title>
-  <link rel="stylesheet" href="assets/css/index.css" />
-  <style>
-    /* Add CSS styles here */
-    body,
-    html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon V1</title>
+    <link rel="stylesheet" href="assets/css/index.css" />
+    <style>
+      /* Add CSS styles here */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
-    }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
 
-    .header {
-      background-color: transparent;
-      padding: 10px 0;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      .header {
+        background-color: transparent;
+        padding: 10px 0;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-    .header a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 18px;
-      transition: color 0.3s;
-      position: relative;
-      z-index: 1;
-    }
+      .header a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 18px;
+        transition: color 0.3s;
+        position: relative;
+        z-index: 1;
+      }
 
-    .header a:hover {
-      color: #7289da;
-    }
+      .header a:hover {
+        color: #7289da;
+      }
 
-    .header a span {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 20px;
-      background-color: rgba(255, 255, 255, 0.2); /* Adjust opacity as needed */
-    }
+      .header a span {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.2);
+        /* Adjust opacity as needed */
+      }
 
-    .header a img {
-      width: 30px;
-      height: 30px;
-      margin-right: 5px;
-    }
+      .header a img {
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+      }
 
-    .title {
-      text-align: center;
-      margin-top: 20px; /* Adjust spacing from header */
-    }
+      .title {
+        text-align: center;
+        margin-top: 20px;
+        /* Adjust spacing from header */
+      }
 
-    .header {
-      display: flex;
-      justify-content: center;
-      margin-top: 50px; /* Adjust spacing from header */
-    }
+      .header {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        /* Adjust spacing from header */
+      }
 
-    .header a {
-      margin: 0 10px;
-    }
-  </style>
-</head>
-<body>
-  <div id="particles-js"></div> <!-- Move this line above the title -->
-  <div class="container">
-    <h1 class="title">Dragon V1</h1>
-    <div class="header">
-      <a href="apps.html"><img src="https://img.icons8.com/?size=512&id=cAi7tS2wPJ7v&format=png" alt="Apps Icon" /><span>Apps</span></a>
-      <a href="games.html"><img src="https://img.icons8.com/?size=512&id=ETI89AT9Xeqo&format=png" alt="Games Icon" /><span>Games</span></a>
-      <a href="settings.html"><img src="https://img.icons8.com/?size=512&id=364&format=png" alt="Settings Icon" /><span>Setting</span></a>
+      .header a {
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <!-- Move this line above the title -->
+    <div class="container">
+      <h1 class="title">Dragon V1</h1>
+      <div class="header">
+        <a href="apps.html">
+          <img src="https://img.icons8.com/?size=512&id=ETI89AT9Xeqo&format=png" alt="Apps Icon" />
+          <span>Apps</span>
+        </a>
+        <a href="games.html">
+          <img src="https://img.icons8.com/?size=512&id=cAi7tS2wPJ7v&format=png" alt="Games Icon" />
+          <span>Games</span>
+        </a>
+        <a href="settings.html">
+          <img src="https://img.icons8.com/?size=512&id=364&format=png" alt="Settings Icon" />
+          <span>Setting</span>
+        </a>
+      </div>
+      <form id="uv-form">
+        <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
+        <input id="uv-address" type="text" placeholder="Enter a URL or Search">
+        <button type="submit">Search</button>
+      </form>
+      <!-- Add background image button -->
+      <button id="background-btn">Download Background Image</button>
     </div>
-    <form id="uv-form">
-      <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
-      <input id="uv-address" type="text" placeholder="Enter a URL or Search">
-      <button type="submit">Search</button>
-    </form>
-    <!-- Add background image button -->
-    <button id="background-btn">Download Background Image</button>
-  </div>
-
-  <script>
-    // Function to handle setting background image from file input
-    function setBackgroundImage(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.body.style.backgroundImage = `url('${e.target.result}')`;
-          // Store the background image URL in local storage
-          localStorage.setItem('backgroundImage', e.target.result);
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // Check if there's a background image stored in local storage
-      const storedBackgroundImage = localStorage.getItem('backgroundImage');
-      if (storedBackgroundImage) {
-        document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
-      }
-
-      const searchContainer = document.getElementById("uv-form");
-      const searchInput = document.getElementById("uv-address");
-
-      function updateCursor(event) {
-        const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
-        const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
-        const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
-        const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
-        const distance = Math.min(dx, dy);
-        const maxDistance = 50; // Adjust the maximum distance for glow effect
-        let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
-        intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
-        const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
-        searchContainer.style.boxShadow = `0 0 ${intensity}px rgba(255, 255, 255, ${glowOpacity})`; // Adjusted glow color with opacity
-
-        // Change cursor to crosshair when hovering over the search input
-        if (event.target === searchInput || searchContainer.contains(event.target)) {
-          document.body.style.cursor = "crosshair";
-          searchContainer.style.boxShadow = "0 0 20px rgba(255, 255, 255, 1)"; // Set max brightness when cursor is inside the container
-        } else {
-          document.body.style.cursor = "url('green_cursor.png'), auto";
+    <script>
+      // Function to handle setting background image from file input
+      function setBackgroundImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.body.style.backgroundImage = `url('${e.target.result}')`;
+            // Store the background image URL in local storage
+            localStorage.setItem('backgroundImage', e.target.result);
+          }
+          reader.readAsDataURL(file);
         }
       }
+      document.addEventListener("DOMContentLoaded", function() {
+        // Check if there's a background image stored in local storage
+        const storedBackgroundImage = localStorage.getItem('backgroundImage');
+        if (storedBackgroundImage) {
+          document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
+        }
+        const searchContainer = document.getElementById("uv-form");
+        const searchInput = document.getElementById("uv-address");
 
-      let animationFrameId;
+        function updateCursor(event) {
+          const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
+          const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
+          const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
+          const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
+          const distance = Math.min(dx, dy);
+          const maxDistance = 50; // Adjust the maximum distance for glow effect
+          let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
+          intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
+          const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
+          searchContainer.style.boxShadow = `0 0 ${intensity}px rgba(255, 255, 255, ${glowOpacity})`; // Adjusted glow color with opacity
+          // Change cursor to crosshair when hovering over the search input
+          if (event.target === searchInput || searchContainer.contains(event.target)) {
+            document.body.style.cursor = "crosshair";
+            searchContainer.style.boxShadow = "0 0 20px rgba(255, 255, 255, 1)"; // Set max brightness when cursor is inside the container
+          } else {
+            document.body.style.cursor = "url('green_cursor.png'), auto";
+          }
+        }
+        let animationFrameId;
 
-      function animateCursor() {
-        animationFrameId = requestAnimationFrame(animateCursor);
-        updateCursor(event);
-      }
-
-      animateCursor();
-
-      document.addEventListener('mousemove', function (event) {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        animationFrameId = requestAnimationFrame(() => updateCursor(event));
+        function animateCursor() {
+          animationFrameId = requestAnimationFrame(animateCursor);
+          updateCursor(event);
+        }
+        animateCursor();
+        document.addEventListener('mousemove', function(event) {
+          if (animationFrameId) cancelAnimationFrame(animationFrameId);
+          animationFrameId = requestAnimationFrame(() => updateCursor(event));
+        });
+        // Add event listener for file input change
+        document.getElementById('background-btn').addEventListener('click', function() {
+          document.getElementById('file-input').click();
+        });
+        document.getElementById('file-input').addEventListener('change', setBackgroundImage);
       });
-
-      // Add event listener for file input change
-      document.getElementById('background-btn').addEventListener('click', function() {
-        document.getElementById('file-input').click();
-      });
-      document.getElementById('file-input').addEventListener('change', setBackgroundImage);
-    });
-  </script>
-
-  <script src="/uv/uv.bundle.js"></script>
-  <script src="/uv/uv.config.js"></script>
-  <script src="/assets/js/index.js"></script>
-
-  <!-- Hidden file input for selecting background image -->
-  <input type="file" id="file-input" accept="image/*" style="display: none;">
-</body>
+    </script>
+    <script src="/uv/uv.bundle.js"></script>
+    <script src="/uv/uv.config.js"></script>
+    <script src="/assets/js/index.js"></script>
+    <!-- Hidden file input for selecting background image -->
+    <input type="file" id="file-input" accept="image/*" style="display: none;">
+  </body>
 </html>
