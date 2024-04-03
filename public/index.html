@@ -331,13 +331,13 @@
       const colorMenu = document.querySelector('.color-menu');
       const selectedColor = window.getComputedStyle(colorMenu).color;
 
-      searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity})`; // Adjusted glow color with opacity
+      searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity}`; // Adjusted glow color with opacity
       // Change cursor to crosshair when hovering over the search input
       if (event.target === searchInput || searchContainer.contains(event.target)) {
         document.body.style.cursor = "crosshair";
-        searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1)`; // Set max brightness when cursor is inside the container
+        searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1`; // Set max brightness when cursor is inside the container
       } else {
-        document.body.style.cursor = "url('green_cursor.png'), auto";
+        document.body.style.cursor = "auto";
       }
     }
 
@@ -367,7 +367,9 @@
 
     // Add event listener for reverting to default background image
     document.getElementById('revert-btn').addEventListener('click', function() {
-      document.body.style.backgroundImage = 'none';
+      document.body.style.background = 'none';
+      document.body.style.backgroundColor = '';
+      document.getElementById('uv-form').style.boxShadow = 'none';
       // Remove background image URL from local storage
       localStorage.removeItem('backgroundImage');
     });
@@ -383,6 +385,9 @@
     colorMenu.addEventListener('click', function(event) {
       const selectedColor = event.target.className;
       document.body.style.backgroundColor = selectedColor;
+      const searchContainer = document.getElementById("uv-form");
+      const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
+      searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
       colorMenu.style.display = 'none';
     });
   });
