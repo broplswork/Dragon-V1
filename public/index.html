@@ -144,23 +144,6 @@
       position: relative;
       z-index: 1;
     }
-
-    /* Color buttons styles */
-    #color-buttons {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 9999;
-    }
-
-    #color-buttons button {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin: 0 5px;
-      cursor: pointer;
-      border: none;
-    }
   </style>
 </head>
 <body>
@@ -188,22 +171,21 @@
   </form>
 </div>
 
-<!-- Welcome popup -->
+<!-- Add download button image -->
+<a id="download-btn" href="#">
+  <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
+</a>
+
+<!-- Add revert button image -->
+<a id="revert-btn" href="#">
+  <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
+</a>
+
+<!-- Welcome Popup -->
 <div class="welcome-popup" id="welcome-popup">
   <h2>Welcome to Dragon Proxy!</h2>
   <p>A noble, peaceful proxy for you to invite your friends. Updates frequently. Adding Games, Apps, and Settings soon. Stay tuned!</p>
   <button id="popup-okay-btn">Okay</button>
-</div>
-
-<!-- Download and revert buttons -->
-<img src="download.png" id="download-btn" alt="Download" />
-<img src="revert.png" id="revert-btn" alt="Revert" />
-
-<!-- Color buttons -->
-<div id="color-buttons">
-  <img src="green.png" class="color-btn" alt="Green" data-color="green" />
-  <img src="blue.png" class="color-btn" alt="Blue" data-color="blue" />
-  <img src="orange.png" class="color-btn" alt="Orange" data-color="orange" />
 </div>
 
 <script>
@@ -269,15 +251,6 @@
       document.body.style.backgroundImage = 'none';
       // Remove background image URL from local storage
       localStorage.removeItem('backgroundImage');
-    });
-
-    // Color buttons event listeners
-    const colorButtons = document.querySelectorAll('.color-btn');
-    colorButtons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        const color = this.dataset.color;
-        searchContainer.style.boxShadow = `0 0 20px ${color}`;
-      });
     });
   });
 
