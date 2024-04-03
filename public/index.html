@@ -79,51 +79,37 @@
     }
 
     /* Style for the download button */
-    #background-btn {
-      background-color: #1abc9c;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      padding: 3px 8px;
-      font-size: 12px; /* Adjust font size */
-      cursor: pointer;
-      transition: background-color 0.3s;
-      display: flex; /* Make button a flex container */
-      bottom: 20px;
-
-    }
-
-    #background-btn:hover {
-      background-color: #148f77;
-    }
-
-    /* Style for the download icon */
-    #background-btn i {
-      margin-right: 5px; /* Adjust spacing between icon and text */
+    #download-btn {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      z-index: 9999;
     }
 
     /* Style for the revert button */
     #revert-btn {
-      position: absolute;
+      position: fixed;
       top: 10px;
       right: 10px;
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 3px 8px;
-      font-size: 12px; /* Adjust font size */
-      cursor: pointer;
-      transition: background-color 0.3s;
+      z-index: 9999;
     }
 
-    #revert-btn:hover {
-      background-color: #c0392b;
+    /* Custom cursor styles */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    #uv-form {
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-<div id="particles-js"></div> <!-- Move this line above the title -->
+<div id="particles-js"></div>
 <div class="container">
   <h1 class="title">Dragon V1</h1>
   <div class="header">
@@ -145,57 +131,59 @@
     <input id="uv-address" type="text" placeholder="Enter a URL or Search">
     <button type="submit">Search</button>
   </form>
-  <!-- Add background image button -->
-  <button id="background-btn">
-    <i class="fas fa-download"></i> Download Background Image
-  </button>
-  <!-- Revert background button -->
-  <button id="revert-btn">
-    Revert Background
-  </button>
 </div>
-<script>
-  // Function to handle setting background image from file input
-  function setBackgroundImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.body.style.backgroundImage = `url('${e.target.result}')`;
-        // Store the background image URL in local storage
-        localStorage.setItem('backgroundImage', e.target.result);
-      }
-      reader.readAsDataURL(file);
-    }
-  }
 
-  // Function to revert background to default
-  function revertBackground() {
-    document.body.style.backgroundImage = 'none';
-    localStorage.removeItem('backgroundImage');
-  }
+<!-- Add download button image -->
+<a id="download-btn" href="#">
+  <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
+</a>
 
-  document.addEventListener("DOMContentLoaded", function() {
-    // Check if there's a background image stored in local storage
-    const storedBackgroundImage = localStorage.getItem('backgroundImage');
-    if (storedBackgroundImage) {
-      document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
-    }
+<!-- Add revert button image -->
+<a id="revert-btn" href="#">
+  <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
+</a>
 
-    // Add event listener for file input change
-    document.getElementById('background-btn').addEventListener('click', function() {
-      document.getElementById('file-input').click();
-    });
-    document.getElementById('file-input').addEventListener('change', setBackgroundImage);
-
-    // Add event listener for revert button
-    document.getElementById('revert-btn').addEventListener('click', revertBackground);
-  });
-</script>
 <script src="/uv/uv.bundle.js"></script>
 <script src="/uv/uv.config.js"></script>
 <script src="/assets/js/index.js"></script>
-<!-- Hidden file input for selecting background image -->
-<input type="file" id="file-input" accept="image/*" style="display: none;">
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchContainer = document.getElementById("uv-form");
+    const searchInput = document.getElementById("uv-address");
+
+    function updateCursor(event) {
+      const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
+      const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
+      const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
+      const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
+      const distance = Math.min(dx, dy);
+      const maxDistance = 50; // Adjust the maximum distance for glow effect
+      let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
+      intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
+      const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
+      searchContainer.style.boxShadow = `0 0 ${intensity}px rgba(255, 255, 255, ${glowOpacity})`; // Adjusted glow color with opacity
+      // Change cursor to crosshair when hovering over the search input
+      if (event.target === searchInput || searchContainer.contains(event.target)) {
+        document.body.style.cursor = "crosshair";
+        searchContainer.style.boxShadow = "0 0 20px rgba(255, 255, 255, 1)"; // Set max brightness when cursor is inside the container
+      } else {
+        document.body.style.cursor = "url('green_cursor.png'), auto";
+      }
+    }
+    let animationFrameId;
+
+    function animateCursor() {
+      animationFrameId = requestAnimationFrame(animateCursor);
+      updateCursor(event);
+    }
+    animateCursor();
+    document.addEventListener('mousemove', function(event) {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(() => updateCursor(event));
+    });
+  });
+</script>
+
 </body>
 </html>
