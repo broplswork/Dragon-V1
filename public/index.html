@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dragon V1</title>
-  <link rel="logo" href="dragon.jpg" type="image/x-icon">
   <link rel="stylesheet" href="assets/css/index.css" />
   <style>
     /* Add CSS styles here */
@@ -145,6 +144,23 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Color buttons styles */
+    #color-buttons {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: 9999;
+    }
+
+    #color-buttons button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -172,21 +188,26 @@
   </form>
 </div>
 
-<!-- Add download button image -->
-<a id="download-btn" href="#">
-  <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
-</a>
-
-<!-- Add revert button image -->
-<a id="revert-btn" href="#">
-  <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
-</a>
-
-<!-- Welcome Popup -->
+<!-- Welcome popup -->
 <div class="welcome-popup" id="welcome-popup">
   <h2>Welcome to Dragon Proxy!</h2>
   <p>A noble, peaceful proxy for you to invite your friends. Updates frequently. Adding Games, Apps, and Settings soon. Stay tuned!</p>
   <button id="popup-okay-btn">Okay</button>
+</div>
+
+<!-- Download and revert buttons -->
+<button id="download-btn">
+  <i class="fas fa-download"></i>
+</button>
+<button id="revert-btn">
+  Revert
+</button>
+
+<!-- Color buttons -->
+<div id="color-buttons">
+  <button class="color-btn" data-color="green" style="background-color: green;"></button>
+  <button class="color-btn" data-color="blue" style="background-color: blue;"></button>
+  <button class="color-btn" data-color="orange" style="background-color: orange;"></button>
 </div>
 
 <script>
@@ -252,6 +273,15 @@
       document.body.style.backgroundImage = 'none';
       // Remove background image URL from local storage
       localStorage.removeItem('backgroundImage');
+    });
+
+    // Color buttons event listeners
+    const colorButtons = document.querySelectorAll('.color-btn');
+    colorButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const color = this.dataset.color;
+        searchContainer.style.boxShadow = `0 0 20px ${color}`;
+      });
     });
   });
 
