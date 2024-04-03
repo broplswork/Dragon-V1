@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dragon V1</title>
+  <link rel="stylesheet" href="assets/css/index.css" />
   <style>
     /* Add CSS styles here */
     body,
@@ -185,16 +186,58 @@
       transform: translate(-100%, -50%);
     }
 
-    /* Style for the color selector */
-    #color-selector {
+    /* Style for the color menu */
+    .color-menu {
       position: absolute;
-      top: 80px;
-      left: 80px;
-      width: 100px;
-      height: 30px;
-      opacity: 0;
-      cursor: pointer;
+      top: 70px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 5px;
       z-index: 9999;
+      display: none;
+    }
+
+    .color-menu button {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: none;
+      margin: 3px;
+      cursor: pointer;
+    }
+
+    .yellow {
+      background-color: yellow;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    .blue {
+      background-color: blue;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .orange {
+      background-color: orange;
+    }
+
+    .purple {
+      background-color: purple;
+    }
+
+    .pink {
+      background-color: pink;
+    }
+
+    .cyan {
+      background-color: cyan;
     }
   </style>
 </head>
@@ -245,11 +288,18 @@
 
 <!-- Color selector as sun icon -->
 <div id="sun-icon">
-  <select id="color-selector">
-    <option value="0">Yellow</option>
-    <option value="1">Green</option>
-    <option value="2">Blue</option>
-  </select>
+  ☀️
+  <!-- Color menu -->
+  <div class="color-menu">
+    <button class="yellow"></button>
+    <button class="green"></button>
+    <button class="blue"></button>
+    <button class="red"></button>
+    <button class="orange"></button>
+    <button class="purple"></button>
+    <button class="pink"></button>
+    <button class="cyan"></button>
+  </div>
 </div>
 
 <script>
@@ -267,11 +317,10 @@
     const searchInput = document.getElementById("uv-address");
 
     function updateCursor(event) {
-      const rect = searchContainer.getBoundingClientRect(); // Get the bounding rectangle of the container
-      const x = event.clientX - rect.left; // Adjusted relative to container position
-      const y = event.clientY - rect.top + window.scrollY; // Adjusted relative to container position including scroll
-      const dx = Math.min(Math.abs(x), Math.abs(rect.width - x));
-      const dy = Math.min(Math.abs(y), Math.abs(rect.height - y));
+      const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
+      const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
+      const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
+      const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
       const distance = Math.min(dx, dy);
       const maxDistance = 50; // Adjust the maximum distance for glow effect
       let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
@@ -284,7 +333,7 @@
 
       searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity}`; // Adjusted glow color with opacity
       // Change cursor to crosshair when hovering over the search input
-      if (searchContainer.contains(event.target)) {
+      if (event.target === searchInput || searchContainer.contains(event.target)) {
         document.body.style.cursor = "crosshair";
         searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1`; // Set max brightness when cursor is inside the container
       } else {
@@ -318,9 +367,28 @@
 
     // Add event listener for reverting to default background image
     document.getElementById('revert-btn').addEventListener('click', function() {
-      document.body.style.backgroundImage = 'none';
+      document.body.style.background = 'none';
+      document.body.style.backgroundColor = '';
+      document.getElementById('uv-form').style.boxShadow = 'none';
       // Remove background image URL from local storage
       localStorage.removeItem('backgroundImage');
+    });
+
+    // Event listener for opening color menu
+    const sunIcon = document.getElementById('sun-icon');
+    const colorMenu = document.querySelector('.color-menu');
+    sunIcon.addEventListener('click', function() {
+      colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Event listener for selecting a color from the menu
+    colorMenu.addEventListener('click', function(event) {
+      const selectedColor = event.target.className;
+      document.body.style.backgroundColor = selectedColor;
+      const searchContainer = document.getElementById("uv-form");
+      const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
+      searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
+      colorMenu.style.display = 'none';
     });
   });
 
