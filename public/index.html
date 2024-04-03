@@ -12,6 +12,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      position: relative;
     }
 
     .container {
@@ -144,6 +145,58 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Style for the sun icon */
+    #sun-icon {
+      width: 50px;
+      height: 50px;
+      background-color: #f1c40f;
+      border-radius: 50%;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 9999;
+    }
+
+    /* Style for the sun icon's rays */
+    #sun-icon::before,
+    #sun-icon::after {
+      content: "";
+      position: absolute;
+      background-color: #f1c40f;
+    }
+
+    #sun-icon::before {
+      width: 2px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+
+    #sun-icon::after {
+      width: 20px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-100%, -50%);
+    }
+
+    /* Style for the color selector */
+    #color-selector {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 100px;
+      height: 30px;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
@@ -188,6 +241,18 @@
   <button id="popup-okay-btn">Okay</button>
 </div>
 
+<!-- Hidden file input for selecting background image -->
+<input type="file" id="file-input" accept="image/*" style="display: none;">
+
+<!-- Color selector as sun icon -->
+<div id="sun-icon">
+  <select id="color-selector">
+    <option value="0">Yellow</option>
+    <option value="1">Green</option>
+    <option value="2">Blue</option>
+  </select>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Display welcome popup
@@ -212,11 +277,17 @@
       let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
       intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
       const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
-      searchContainer.style.boxShadow = `0 0 ${intensity}px rgba(255, 255, 255, ${glowOpacity})`; // Adjusted glow color with opacity
+      
+      // Choose color based on user's selection
+      const colorIndex = document.getElementById("color-selector").value;
+      const colors = ["rgba(255, 255, 0,", "rgba(0, 255, 0,", "rgba(0, 0, 255,"]; // Define different colors
+      const selectedColor = colors[colorIndex];
+      
+      searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity})`; // Adjusted glow color with opacity
       // Change cursor to crosshair when hovering over the search input
       if (event.target === searchInput || searchContainer.contains(event.target)) {
         document.body.style.cursor = "crosshair";
-        searchContainer.style.boxShadow = "0 0 20px rgba(255, 255, 255, 1)"; // Set max brightness when cursor is inside the container
+        searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1)`; // Set max brightness when cursor is inside the container
       } else {
         document.body.style.cursor = "url('green_cursor.png'), auto";
       }
@@ -271,8 +342,6 @@
 <script src="/uv/uv.bundle.js"></script>
 <script src="/uv/uv.config.js"></script>
 <script src="/assets/js/index.js"></script>
-<!-- Hidden file input for selecting background image -->
-<input type="file" id="file-input" accept="image/*" style="display: none;">
 
 </body>
 </html>
