@@ -96,6 +96,42 @@
       cursor: pointer;
     }
 
+    /* Welcome popup styles */
+    .welcome-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      display: none; /* Hide by default */
+    }
+
+    .welcome-popup h2 {
+      margin-top: 0;
+    }
+
+    .welcome-popup p {
+      margin-bottom: 20px;
+    }
+
+    .welcome-popup button {
+      padding: 8px 16px;
+      background-color: #1abc9c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .welcome-popup button:hover {
+      background-color: #148f77;
+    }
+
     /* Custom cursor styles */
     #particles-js {
       position: absolute;
@@ -145,11 +181,26 @@
   <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
 </a>
 
+<!-- Welcome Popup -->
+<div class="welcome-popup" id="welcome-popup">
+  <h2>Welcome to Dragon Proxy!</h2>
+  <p>A noble, peaceful proxy for you to invite your friends. Updates frequently. Adding Games, Apps, and Settings soon. Stay tuned!</p>
+  <button id="popup-okay-btn">Okay</button>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    // Display welcome popup
+    const welcomePopup = document.getElementById('welcome-popup');
+    welcomePopup.style.display = 'block';
+
+    // Event listener for closing the welcome popup
+    document.getElementById('popup-okay-btn').addEventListener('click', function() {
+      welcomePopup.style.display = 'none';
+    });
+
     const searchContainer = document.getElementById("uv-form");
     const searchInput = document.getElementById("uv-address");
-    const fileInput = document.getElementById('file-input');
 
     function updateCursor(event) {
       const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
@@ -170,35 +221,29 @@
         document.body.style.cursor = "url('green_cursor.png'), auto";
       }
     }
+
     let animationFrameId;
 
     function animateCursor() {
       animationFrameId = requestAnimationFrame(animateCursor);
       updateCursor(event);
     }
+
     animateCursor();
+
     document.addEventListener('mousemove', function(event) {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       animationFrameId = requestAnimationFrame(() => updateCursor(event));
     });
 
     // Add event listener for file input change
+    const fileInput = document.getElementById('file-input');
     document.getElementById('download-btn').addEventListener('click', function() {
       fileInput.click();
     });
 
-    // Add event listener for selecting background image
     fileInput.addEventListener('change', function(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.body.style.backgroundImage = `url('${e.target.result}')`;
-          // Store the background image URL in local storage
-          localStorage.setItem('backgroundImage', e.target.result);
-        }
-        reader.readAsDataURL(file);
-      }
+      setBackgroundImage(event);
     });
 
     // Add event listener for reverting to default background image
@@ -208,8 +253,24 @@
       localStorage.removeItem('backgroundImage');
     });
   });
-</script>
 
+  // Function to handle setting background image from file input
+  function setBackgroundImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.body.style.backgroundImage = `url('${e.target.result}')`;
+        // Store the background image URL in local storage
+        localStorage.setItem('backgroundImage', e.target.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+<script src="/uv/uv.bundle.js"></script>
+<script src="/uv/uv.config.js"></script>
+<script src="/assets/js/index.js"></script>
 <!-- Hidden file input for selecting background image -->
 <input type="file" id="file-input" accept="image/*" style="display: none;">
 
