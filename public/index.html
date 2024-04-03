@@ -264,10 +264,19 @@
       const colorMenu = document.getElementById('color-menu');
       colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
     });
+    
+    // Event listener for color menu button click to change glow color
+    const colorButtons = document.querySelectorAll('.color-menu button');
+    colorButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const color = button.style.backgroundColor;
+        changeGlowColor(color);
+      });
+    });
   });
 
-  // Function to change container color
-  function changeColor(color) {
+  // Function to change container glow color
+  function changeGlowColor(color) {
     const container = document.getElementById('uv-form');
     container.style.boxShadow = `0 0 20px ${color} 1)`;
     // Hide color menu
