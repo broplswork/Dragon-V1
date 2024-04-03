@@ -148,42 +148,12 @@
 
     /* Style for the sun icon */
     #sun-icon {
-      width: 50px;
-      height: 50px;
-      background-color: #f1c40f;
-      border-radius: 50%;
+      font-size: 40px; /* Increase font size to make the emoji larger */
       position: absolute;
       top: 20px;
       left: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       cursor: pointer;
       z-index: 9999;
-    }
-
-    /* Style for the sun icon's rays */
-    #sun-icon::before,
-    #sun-icon::after {
-      content: "";
-      position: absolute;
-      background-color: #f1c40f;
-    }
-
-    #sun-icon::before {
-      width: 2px;
-      height: 20px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -100%);
-    }
-
-    #sun-icon::after {
-      width: 20px;
-      height: 2px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-100%, -50%);
     }
 
     /* Style for the color selector */
@@ -196,6 +166,24 @@
       opacity: 0;
       cursor: pointer;
       z-index: 9999;
+    }
+
+    /* Style for the color menu */
+    .color-menu {
+      position: absolute;
+      top: 100px;
+      left: 80px;
+      display: none;
+      z-index: 9999;
+    }
+
+    .color-menu button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 50%;
+      margin-right: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -245,12 +233,18 @@
 <input type="file" id="file-input" accept="image/*" style="display: none;">
 
 <!-- Color selector as sun icon -->
-<div id="sun-icon">
-  <select id="color-selector">
-    <option value="0">Yellow</option>
-    <option value="1">Green</option>
-    <option value="2">Blue</option>
-  </select>
+<div id="sun-icon">☀️</div>
+
+<!-- Color menu -->
+<div class="color-menu" id="color-menu">
+  <button style="background-color: yellow;" onclick="changeColor('rgba(255, 255, 0,')"></button>
+  <button style="background-color: red;" onclick="changeColor('rgba(255, 0, 0,')"></button>
+  <button style="background-color: green;" onclick="changeColor('rgba(0, 255, 0,')"></button>
+  <button style="background-color: blue;" onclick="changeColor('rgba(0, 0, 255,')"></button>
+  <button style="background-color: orange;" onclick="changeColor('rgba(255, 165, 0,')"></button>
+  <button style="background-color: purple;" onclick="changeColor('rgba(128, 0, 128,')"></button>
+  <button style="background-color: white; border: 1px solid #000;" onclick="changeColor('rgba(255, 255, 255,')"></button>
+  <button style="background-color: black;" onclick="changeColor('rgba(0, 0, 0,')"></button>
 </div>
 
 <script>
@@ -264,79 +258,21 @@
       welcomePopup.style.display = 'none';
     });
 
-    const searchContainer = document.getElementById("uv-form");
-    const searchInput = document.getElementById("uv-address");
-
-    function updateCursor(event) {
-      const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
-      const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
-      const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
-      const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
-      const distance = Math.min(dx, dy);
-      const maxDistance = 50; // Adjust the maximum distance for glow effect
-      let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
-      intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
-      const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
-      
-      // Choose color based on user's selection
-      const colorIndex = document.getElementById("color-selector").value;
-      const colors = ["rgba(255, 255, 0,", "rgba(0, 255, 0,", "rgba(0, 0, 255,"]; // Define different colors
-      const selectedColor = colors[colorIndex];
-      
-      searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity})`; // Adjusted glow color with opacity
-      // Change cursor to crosshair when hovering over the search input
-      if (event.target === searchInput || searchContainer.contains(event.target)) {
-        document.body.style.cursor = "crosshair";
-        searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1)`; // Set max brightness when cursor is inside the container
-      } else {
-        document.body.style.cursor = "url('green_cursor.png'), auto";
-      }
-    }
-
-    let animationFrameId;
-
-    function animateCursor() {
-      animationFrameId = requestAnimationFrame(animateCursor);
-      updateCursor(event);
-    }
-
-    animateCursor();
-
-    document.addEventListener('mousemove', function(event) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => updateCursor(event));
-    });
-
-    // Add event listener for file input change
-    const fileInput = document.getElementById('file-input');
-    document.getElementById('download-btn').addEventListener('click', function() {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', function(event) {
-      setBackgroundImage(event);
-    });
-
-    // Add event listener for reverting to default background image
-    document.getElementById('revert-btn').addEventListener('click', function() {
-      document.body.style.backgroundImage = 'none';
-      // Remove background image URL from local storage
-      localStorage.removeItem('backgroundImage');
+    // Event listener for sun icon click to toggle color menu visibility
+    const sunIcon = document.getElementById('sun-icon');
+    sunIcon.addEventListener('click', () => {
+      const colorMenu = document.getElementById('color-menu');
+      colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
     });
   });
 
-  // Function to handle setting background image from file input
-  function setBackgroundImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.body.style.backgroundImage = `url('${e.target.result}')`;
-        // Store the background image URL in local storage
-        localStorage.setItem('backgroundImage', e.target.result);
-      }
-      reader.readAsDataURL(file);
-    }
+  // Function to change container color
+  function changeColor(color) {
+    const container = document.getElementById('uv-form');
+    container.style.boxShadow = `0 0 20px ${color} 1)`;
+    // Hide color menu
+    const colorMenu = document.getElementById('color-menu');
+    colorMenu.style.display = 'none';
   }
 </script>
 <script src="/uv/uv.bundle.js"></script>
