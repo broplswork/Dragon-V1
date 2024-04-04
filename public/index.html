@@ -108,7 +108,7 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       z-index: 9999;
-      display: none; /* Hide by default */
+      display: block; /* Always show */
     }
 
     .welcome-popup h2 {
@@ -304,17 +304,10 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Check if the welcome popup has been shown before
-    const hasVisitedBefore = localStorage.getItem('visitedBefore');
-
-    if (!hasVisitedBefore) {
-      document.getElementById('welcome-popup').style.display = 'block';
-    }
+    document.getElementById('welcome-popup').style.display = 'block'; // Always show the welcome popup
 
     document.getElementById('popup-okay-btn').addEventListener('click', function() {
       document.getElementById('welcome-popup').style.display = 'none';
-      // Set a flag in localStorage to indicate that the user has visited the site before
-      localStorage.setItem('visitedBefore', true);
     });
 
     const storedBackgroundImage = localStorage.getItem('backgroundImage');
