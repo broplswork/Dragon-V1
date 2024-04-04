@@ -267,24 +267,12 @@
 </div>
 
 <!-- Add download button image -->
-<a id="download-btn" href="#">
+<a id="download-btn" href="#" onclick="document.getElementById('file-input').click();">
   <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
 </a>
 
-<!-- Add revert button image -->
-<a id="revert-btn" href="#">
-  <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
-</a>
-
-<!-- Welcome Popup -->
-<div class="welcome-popup" id="welcome-popup">
-  <h2>Welcome to Dragon Proxy!</h2>
-  <p>A noble, peaceful proxy for you to invite your friends. Updates frequently. Adding Games, Apps, and Settings soon. Stay tuned!</p>
-  <button id="popup-okay-btn">Okay</button>
-</div>
-
 <!-- Hidden file input for selecting background image -->
-<input type="file" id="file-input" accept="image/*" style="display: none;">
+<input type="file" id="file-input" accept="image/*" style="display: none;" onchange="setBackgroundImage(event);">
 
 <!-- Color selector as sun icon -->
 <div id="sun-icon">
@@ -302,16 +290,26 @@
   </div>
 </div>
 
+<!-- Welcome Popup -->
+<div class="welcome-popup" id="welcome-popup">
+  <h2>Welcome to Dragon Proxy!</h2>
+  <p>A noble, peaceful proxy for you to invite your friends. Updates frequently. Adding Games, Apps, and Settings soon. Stay tuned!</p>
+  <button id="popup-okay-btn">Okay</button>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Initialize particles.js
-    particlesJS('particles-container', { // Updated ID to particles-container
-      // Your particle configuration options here
-    });
+    // Check if the welcome popup has been shown before
+    const hasVisitedBefore = localStorage.getItem('visitedBefore');
 
-    // Your other JavaScript code here...
+    if (!hasVisitedBefore) {
+      document.getElementById('welcome-popup').style.display = 'block';
+    }
+
     document.getElementById('popup-okay-btn').addEventListener('click', function() {
       document.getElementById('welcome-popup').style.display = 'none';
+      // Set a flag in localStorage to indicate that the user has visited the site before
+      localStorage.setItem('visitedBefore', true);
     });
 
     const storedBackgroundImage = localStorage.getItem('backgroundImage');
