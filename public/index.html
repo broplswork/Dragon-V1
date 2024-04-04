@@ -271,22 +271,27 @@
   <img src="https://img.icons8.com/material-rounded/24/ffffff/download.png" alt="Download Icon" />
 </a>
 
+<!-- Add revert button image -->
+<a id="revert-btn" href="#" onclick="revertBackground();">
+  <img src="https://img.icons8.com/material-rounded/24/ffffff/undo.png" alt="Revert Icon" />
+</a>
+
 <!-- Hidden file input for selecting background image -->
 <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="setBackgroundImage(event);">
 
 <!-- Color selector as sun icon -->
-<div id="sun-icon">
+<div id="sun-icon" onclick="toggleColorMenu()">
   ☀️
   <!-- Color menu -->
   <div class="color-menu">
-    <button class="yellow"></button>
-    <button class="green"></button>
-    <button class="blue"></button>
-    <button class="red"></button>
-    <button class="orange"></button>
-    <button class="purple"></button>
-    <button class="pink"></button>
-    <button class="cyan"></button>
+    <button class="yellow" onclick="changeBackgroundColor('yellow')"></button>
+    <button class="green" onclick="changeBackgroundColor('green')"></button>
+    <button class="blue" onclick="changeBackgroundColor('blue')"></button>
+    <button class="red" onclick="changeBackgroundColor('red')"></button>
+    <button class="orange" onclick="changeBackgroundColor('orange')"></button>
+    <button class="purple" onclick="changeBackgroundColor('purple')"></button>
+    <button class="pink" onclick="changeBackgroundColor('pink')"></button>
+    <button class="cyan" onclick="changeBackgroundColor('cyan')"></button>
   </div>
 </div>
 
@@ -321,60 +326,6 @@
     if (storedBackgroundColor) {
       document.body.style.backgroundColor = storedBackgroundColor;
     }
-
-    const searchContainer = document.getElementById("uv-form");
-    const searchInput = document.getElementById("uv-address");
-
-    function updateCursor(event) {
-      /* Your updateCursor function */
-    }
-
-    let animationFrameId;
-
-    function animateCursor() {
-      animationFrameId = requestAnimationFrame(animateCursor);
-      updateCursor(event);
-    }
-
-    animateCursor();
-
-    document.addEventListener('mousemove', function(event) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => updateCursor(event));
-    });
-
-    const fileInput = document.getElementById('file-input');
-    document.getElementById('download-btn').addEventListener('click', function() {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', function(event) {
-      setBackgroundImage(event);
-    });
-
-    document.getElementById('revert-btn').addEventListener('click', function() {
-      document.body.style.background = 'none';
-      document.body.style.backgroundColor = '';
-      document.getElementById('uv-form').style.boxShadow = 'none';
-      localStorage.removeItem('backgroundImage');
-      localStorage.removeItem('backgroundColor');
-    });
-
-    const sunIcon = document.getElementById('sun-icon');
-    const colorMenu = document.querySelector('.color-menu');
-    sunIcon.addEventListener('click', function() {
-      colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    colorMenu.addEventListener('click', function(event) {
-      const selectedColor = event.target.className;
-      document.body.style.backgroundColor = selectedColor;
-      const searchContainer = document.getElementById("uv-form");
-      const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
-      searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
-      colorMenu.style.display = 'none';
-      localStorage.setItem('backgroundColor', selectedColor);
-    });
   });
 
   function setBackgroundImage(event) {
@@ -386,6 +337,29 @@
       localStorage.setItem('backgroundImage', imageUrl);
     };
     reader.readAsDataURL(file);
+  }
+
+  function revertBackground() {
+    document.body.style.background = 'none';
+    document.body.style.backgroundColor = '';
+    document.getElementById('uv-form').style.boxShadow = 'none';
+    localStorage.removeItem('backgroundImage');
+    localStorage.removeItem('backgroundColor');
+  }
+
+  function toggleColorMenu() {
+    const colorMenu = document.querySelector('.color-menu');
+    colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function changeBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    const searchContainer = document.getElementById("uv-form");
+    const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
+    searchContainer.style.boxShadow = `0 0 20px ${color} ${glowOpacity}`;
+    const colorMenu = document.querySelector('.color-menu');
+    colorMenu.style.display = 'none';
+    localStorage.setItem('backgroundColor', color);
   }
 </script>
 <script src="/uv/uv.bundle.js"></script>
