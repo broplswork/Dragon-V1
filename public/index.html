@@ -134,6 +134,13 @@
     }
 
     /* Custom cursor styles */
+    #particles-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
     #uv-form {
       position: relative;
       z-index: 1;
@@ -235,6 +242,7 @@
   </style>
 </head>
 <body>
+<div id="particles-container"></div> <!-- Updated ID to particles-container -->
 <div class="container">
   <h1 class="title">Dragon V1</h1>
   <div class="header">
@@ -296,6 +304,12 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    // Initialize particles.js
+    particlesJS('particles-container', { // Updated ID to particles-container
+      // Your particle configuration options here
+    });
+
+    // Your other JavaScript code here...
     document.getElementById('popup-okay-btn').addEventListener('click', function() {
       document.getElementById('welcome-popup').style.display = 'none';
     });
@@ -366,7 +380,14 @@
   });
 
   function setBackgroundImage(event) {
-    /* Your setBackgroundImage function */
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageUrl = e.target.result;
+      document.body.style.backgroundImage = `url('${imageUrl}')`;
+      localStorage.setItem('backgroundImage', imageUrl);
+    };
+    reader.readAsDataURL(file);
   }
 </script>
 <script src="/uv/uv.bundle.js"></script>
