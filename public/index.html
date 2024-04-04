@@ -304,25 +304,21 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const fileInput = document.getElementById('file-input'); // Added fileInput declaration
-
-    document.getElementById('download-btn').addEventListener('click', function() {
-      fileInput.click(); // Corrected variable name here
+    // Initialize particles.js
+    particlesJS('particles-container', { // Updated ID to particles-container
+      // Your particle configuration options here
     });
 
-    fileInput.addEventListener('change', function(event) {
-      setBackgroundImage(event);
+    // Your other JavaScript code here...
+    document.getElementById('popup-okay-btn').addEventListener('click', function() {
+      document.getElementById('welcome-popup').style.display = 'none';
     });
 
-    function setBackgroundImage(event) {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.body.style.backgroundImage = `url('${e.target.result}')`;
-        localStorage.setItem('backgroundImage', e.target.result);
-      }
-      reader.readAsDataURL(file);
+    const storedBackgroundImage = localStorage.getItem('backgroundImage');
+    if (storedBackgroundImage) {
+      document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
     }
+
     const storedBackgroundColor = localStorage.getItem('backgroundColor');
     if (storedBackgroundColor) {
       document.body.style.backgroundColor = storedBackgroundColor;
