@@ -313,6 +313,18 @@
       welcomePopup.style.display = 'none';
     });
 
+    // Retrieve background image URL from local storage
+    const storedBackgroundImage = localStorage.getItem('backgroundImage');
+    if (storedBackgroundImage) {
+      document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
+    }
+
+    // Retrieve selected color from local storage
+    const storedBackgroundColor = localStorage.getItem('backgroundColor');
+    if (storedBackgroundColor) {
+      document.body.style.backgroundColor = storedBackgroundColor;
+    }
+
     const searchContainer = document.getElementById("uv-form");
     const searchInput = document.getElementById("uv-address");
 
@@ -372,6 +384,7 @@
       document.getElementById('uv-form').style.boxShadow = 'none';
       // Remove background image URL from local storage
       localStorage.removeItem('backgroundImage');
+      localStorage.removeItem('backgroundColor');
     });
 
     // Event listener for opening color menu
@@ -389,6 +402,8 @@
       const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
       searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
       colorMenu.style.display = 'none';
+      // Store selected color in local storage
+      localStorage.setItem('backgroundColor', selectedColor);
     });
   });
 
