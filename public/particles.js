@@ -1,15 +1,14 @@
-/* particle.min.js */
-particlesJS("particles-js", {
+particlesJS('particles-container', {
   "particles": {
     "number": {
-      "value": 400,
+      "value": 80,
       "density": {
         "enable": true,
         "value_area": 800
       }
     },
     "color": {
-      "value": "#0f0d14"
+      "value": "#ffffff"
     },
     "shape": {
       "type": "circle",
@@ -22,8 +21,28 @@ particlesJS("particles-js", {
       },
       "image": {
         "src": "img/github.svg",
-        "width": 100,
-        "height": 100
+        "width": 100, // Change this value for particle size
+        "height": 100 // Change this value for particle size
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3, // Change this value for particle size
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
       }
     },
     "opacity": {
