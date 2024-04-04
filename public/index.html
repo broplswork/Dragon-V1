@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dragon V1</title>
   <link rel="stylesheet" href="assets/css/index.css" />
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <style>
     /* Add CSS styles here */
     body,
@@ -135,13 +134,6 @@
     }
 
     /* Custom cursor styles */
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
     #uv-form {
       position: relative;
       z-index: 1;
@@ -303,124 +295,118 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Display welcome popup
-    const welcomePopup = document.getElementById('welcome-popup');
-    welcomePopup.style.display = 'block';
-
-    // Event listener for closing the welcome popup
-    document.getElementById('popup-okay-btn').addEventListener('click', function() {
-      welcomePopup.style.display = 'none';
-    });
-
-    // Retrieve background image URL from local storage
-    const storedBackgroundImage = localStorage.getItem('backgroundImage');
-    if (storedBackgroundImage) {
-      document.body.style.backgroundImage = `url('${storedBackgroundImage}')`;
-    }
-
-    // Retrieve selected color from local storage
-    const storedBackgroundColor = localStorage.getItem('backgroundColor');
-    if (storedBackgroundColor) {
-      document.body.style.backgroundColor = storedBackgroundColor;
-    }
-
-    const searchContainer = document.getElementById("uv-form");
-    const searchInput = document.getElementById("uv-address");
-
-    function updateCursor(event) {
-      const x = event.clientX - searchContainer.offsetLeft; // Adjusted relative to container position
-      const y = event.clientY - searchContainer.offsetTop; // Adjusted relative to container position
-      const dx = Math.min(Math.abs(x), Math.abs(searchContainer.clientWidth - x));
-      const dy = Math.min(Math.abs(y), Math.abs(searchContainer.clientHeight - y));
-      const distance = Math.min(dx, dy);
-      const maxDistance = 50; // Adjust the maximum distance for glow effect
-      let intensity = (1 - distance / maxDistance) * 20; // Adjust the glow intensity
-      intensity = intensity < 0 ? 0 : intensity; // Ensure intensity doesn't go negative
-      const glowOpacity = (1 - distance / maxDistance); // Opacity based on distance
-      
-      // Choose color based on user's selection
-      const colorMenu = document.querySelector('.color-menu');
-      const selectedColor = window.getComputedStyle(colorMenu).color;
-
-      searchContainer.style.boxShadow = `0 0 ${intensity}px ${selectedColor} ${glowOpacity}`; // Adjusted glow color with opacity
-      // Change cursor to crosshair when hovering over the search input
-      if (event.target === searchInput || searchContainer.contains(event.target)) {
-        document.body.style.cursor = "crosshair";
-        searchContainer.style.boxShadow = `0 0 20px ${selectedColor} 1`; // Set max brightness when cursor is inside the container
-      } else {
-        document.body.style.cursor = "auto";
+  particlesJS("particles-js", {
+    "particles": {
+      "number": {
+        "value": 80,
+        "density": {
+          "enable": true,
+          "value_area": 800
+        }
+      },
+      "color": {
+        "value": "#ffffff"
+      },
+      "shape": {
+        "type": "circle",
+        "stroke": {
+          "width": 0,
+          "color": "#000000"
+        },
+        "polygon": {
+          "nb_sides": 5
+        },
+        "image": {
+          "src": "img/github.svg",
+          "width": 100,
+          "height": 100
+        }
+      },
+      "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+          "enable": false,
+          "speed": 1,
+          "opacity_min": 0.1,
+          "sync": false
+        }
+      },
+      "size": {
+        "value": 3,
+        "random": true,
+        "anim": {
+          "enable": false,
+          "speed": 40,
+          "size_min": 0.1,
+          "sync": false
+        }
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#ffffff",
+        "opacity": 0.4,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 6,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "bounce": false,
+        "attract": {
+          "enable": false,
+          "rotateX": 600,
+          "rotateY": 1200
+        }
       }
-    }
-
-    let animationFrameId;
-
-    function animateCursor() {
-      animationFrameId = requestAnimationFrame(animateCursor);
-      updateCursor(event);
-    }
-
-    animateCursor();
-
-    document.addEventListener('mousemove', function(event) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(() => updateCursor(event));
-    });
-
-    // Add event listener for file input change
-    const fileInput = document.getElementById('file-input');
-    document.getElementById('download-btn').addEventListener('click', function() {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener('change', function(event) {
-      setBackgroundImage(event);
-    });
-
-    // Add event listener for reverting to default background image
-    document.getElementById('revert-btn').addEventListener('click', function() {
-      document.body.style.background = 'none';
-      document.body.style.backgroundColor = '';
-      document.getElementById('uv-form').style.boxShadow = 'none';
-      // Remove background image URL from local storage
-      localStorage.removeItem('backgroundImage');
-      localStorage.removeItem('backgroundColor');
-    });
-
-    // Event listener for opening color menu
-    const sunIcon = document.getElementById('sun-icon');
-    const colorMenu = document.querySelector('.color-menu');
-    sunIcon.addEventListener('click', function() {
-      colorMenu.style.display = colorMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Event listener for selecting a color from the menu
-    colorMenu.addEventListener('click', function(event) {
-      const selectedColor = event.target.className;
-      document.body.style.backgroundColor = selectedColor;
-      const searchContainer = document.getElementById("uv-form");
-      const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
-      searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
-      colorMenu.style.display = 'none';
-      // Store selected color in local storage
-      localStorage.setItem('backgroundColor', selectedColor);
-    });
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": {
+          "enable": true,
+          "mode": "repulse"
+        },
+        "onclick": {
+          "enable": true,
+          "mode": "push"
+        },
+        "resize": true
+      },
+      "modes": {
+        "grab": {
+          "distance": 400,
+          "line_linked": {
+            "opacity": 1
+          }
+        },
+        "bubble": {
+          "distance": 400,
+          "size": 40,
+          "duration": 2,
+          "opacity": 8,
+          "speed": 3
+        },
+        "repulse": {
+          "distance": 200,
+          "duration": 0.4
+        },
+        "push": {
+          "particles_nb": 4
+        },
+        "remove": {
+          "particles_nb": 2
+        }
+      }
+    },
+    "retina_detect": true
   });
-
-  // Function to handle setting background image from file input
-  function setBackgroundImage(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.body.style.backgroundImage = `url('${e.target.result}')`;
-        // Store the background image URL in local storage
-        localStorage.setItem('backgroundImage', e.target.result);
-      }
-      reader.readAsDataURL(file);
-    }
-  }
 </script>
 <script src="/uv/uv.bundle.js"></script>
 <script src="/uv/uv.config.js"></script>
