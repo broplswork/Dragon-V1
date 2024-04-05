@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragon Apps</title>
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <style>
+    /* Add CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .welcome-message {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s;
+    }
+
+    .search-input:hover {
+      border-color: #f1c40f;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    /* Add more CSS styles as needed */
+
+    /* Background customization */
+    .background-customization {
+      margin-bottom: 20px;
+    }
+
+    .background-customization input[type="file"] {
+      display: none;
+    }
+
+    .background-customization label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #7289da;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .background-customization label:hover {
+      background-color: #5f73bc;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Logo and welcome message -->
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/GeForce_Now_Logo.svg/1200px-GeForce_Now_Logo.svg.png" alt="GeForce Now Logo">
+    <h1>Welcome to Apps Dragon</h1>
+  </div>
+
+  <!-- Welcome popup -->
+  <script>
+    window.onload = function() {
+      alert("Welcome to the Dragons app page! Have fun and be safe. Join our Discord community: https://discord.gg/xWFUzvsF");
+    }
+  </script>
+
+  <!-- Search bar -->
+  <div class="search-bar">
+    <input type="text" class="search-input" placeholder="Search for apps...">
+    <span class="search-icon">🔍</span>
+  </div>
+
+  <!-- Background customization -->
+  <div class="background-customization">
+    <label for="file-input">Choose Background</label>
+    <input type="file" id="file-input" accept="image/*" onchange="setBackgroundImage(event);">
+    <button onclick="revertBackground()">Revert</button>
+    <div class="color-menu">
+      <button class="yellow" onclick="changeBackgroundColor('yellow')"></button>
+      <button class="green" onclick="changeBackgroundColor('green')"></button>
+      <button class="blue" onclick="changeBackgroundColor('blue')"></button>
+      <button class="red" onclick="changeBackgroundColor('red')"></button>
+      <button class="orange" onclick="changeBackgroundColor('orange')"></button>
+      <button class="purple" onclick="changeBackgroundColor('purple')"></button>
+      <button class="pink" onclick="changeBackgroundColor('pink')"></button>
+      <button class="cyan" onclick="changeBackgroundColor('cyan')"></button>
+    </div>
+  </div>
+
+  <!-- App content -->
+  <div class="app-content">
+    <!-- Add your app content here -->
+  </div>
+</div>
+
+<script>
+  // Background customization functions
+  function setBackgroundImage(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageUrl = e.target.result;
+      document.body.style.backgroundImage = `url('${imageUrl}')`;
+      localStorage.setItem('backgroundImage', imageUrl);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function revertBackground() {
+    document.body.style.background = 'none';
+    document.body.style.backgroundColor = '';
+    document.getElementById('uv-form').style.boxShadow = 'none';
+    localStorage.removeItem('backgroundImage');
+    localStorage.removeItem('backgroundColor');
+  }
+
+  function changeBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+    const searchContainer = document.getElementById("uv-form");
+    const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
+    searchContainer.style.boxShadow = `0 0 20px ${color} ${glowOpacity}`;
+    const colorMenu = document.querySelector('.color-menu');
+    colorMenu.style.display = 'none';
+    localStorage.setItem('backgroundColor', color);
+  }
+</script>
+
+</body>
+</html>
 
