@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragons Apps Cave</title>
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <style>
+    /* Add CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
 
+    .window {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      display: none;
+    }
+
+    .window h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .window p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .window button {
+      display: block;
+      margin: 0 auto;
+      padding: 8px 16px;
+      background-color: #1abc9c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .window button:hover {
+      background-color: #148f77;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .app-box {
+      width: calc(33.33% - 20px);
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    .app-box:hover {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-bar {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: box-shadow 0.3s;
+    }
+
+    .search-bar:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #revert-btn,
+    #download-btn {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 8px 16px;
+      background-color: #1abc9c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #revert-btn:hover,
+    #download-btn:hover {
+      background-color: #148f77;
+    }
+
+    .color-menu {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .color-menu button {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .color-menu button:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+<div class="window" id="welcome-popup">
+  <h2>Welcome to Dragons Apps Cave!</h2>
+  <p>Stay tuned for apps, we are currently working on it.</p>
+  <button id="popup-okay-btn">Okay</button>
+</div>
+
+<div class="container">
+  <input type="text" class="search-bar" placeholder="Search for apps...">
+  <button id="revert-btn">Revert</button>
+  <button id="download-btn">Download Background</button>
+  <div class="color-menu">
+    <button class="yellow"></button>
+    <button class="green"></button>
+    <button class="blue"></button>
+    <button class="red"></button>
+    <button class="orange"></button>
+    <button class="purple"></button>
+    <button class="pink"></button>
+    <button class="cyan"></button>
+  </div>
+
+  <!-- Container box for apps will go here -->
+</div>
+
+<script>
+  // Show welcome window on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('welcome-popup').style.display = 'block';
+  });
+
+  // Redirect to index.html when okay button is clicked
+  document.getElementById('popup-okay-btn').addEventListener('click', function() {
+    window.location.href = 'index.html';
+  });
+
+  // Add functionality for the revert button
+  document.getElementById('revert-btn').addEventListener('click', function() {
+    document.body.style.background = 'none';
+    document.body.style.backgroundColor = '';
+    document.getElementById('uv-form').style.boxShadow = 'none';
+    localStorage.removeItem('backgroundImage');
+    localStorage.removeItem('backgroundColor');
+  });
+
+  // Add functionality for the download button
+  document.getElementById('download-btn').addEventListener('click', function() {
+    // Your code to handle downloading background image here
+  });
+
+  // Add functionality for the color menu
+  document.querySelectorAll('.color-menu button').forEach(function(button) {
+    button.addEventListener('click', function() {
+      const selectedColor = this.className;
+      document.body.style.backgroundColor = selectedColor;
+      const searchContainer = document.getElementById("uv-form");
+      const glowOpacity = parseFloat(window.getComputedStyle(searchContainer).boxShadow.match(/rgba?\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/)[1]);
+      searchContainer.style.boxShadow = `0 0 20px ${selectedColor} ${glowOpacity}`;
+      colorMenu.style.display = 'none';
+      localStorage.setItem('backgroundColor', selectedColor);
+    });
+  });
+</script>
+
+</body>
+</html>
