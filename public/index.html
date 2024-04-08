@@ -258,10 +258,6 @@
       <img src="https://img.icons8.com/?size=512&id=364&format=png" alt="Settings Icon" />
       <span>Setting</span>
     </a>
-    <a href="statistics.html">
-      <img src="https://static.vecteezy.com/system/resources/thumbnails/017/856/899/small/financial-business-statistics-with-bar-graph-and-candlestick-chart-show-stock-market-price-and-effective-earning-on-blue-background-vector.jpg" alt="Statistics Icon" />
-      <span>Statistics</span>
-    </a>
   </div>
   <form id="uv-form">
     <input id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden">
@@ -358,6 +354,29 @@
     colorMenu.style.display = 'none';
     localStorage.setItem('backgroundColor', color);
   }
+
+  // Function to update the "V2 Shutdown" countdown and redirect when countdown reaches zero
+  function updateV2ShutdownAndRedirect() {
+    const shutdownDate = new Date('2024-05-07T00:00:00Z'); // Set V2 shutdown date
+    const currentTime = new Date();
+    const timeDiff = shutdownDate - currentTime;
+
+    const seconds = Math.floor((timeDiff / 1000) % 60);
+    const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+    const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+      // Redirect to Google after 10 seconds if countdown reaches zero
+      setTimeout(() => {
+        alert("V2 updating...");
+        window.location.href = "https://www.google.com";
+      }, 10000);
+    }
+  }
+
+  // Update V2 Shutdown countdown and perform redirection check every second
+  setInterval(updateV2ShutdownAndRedirect, 1000);
 </script>
 <script src="/uv/uv.bundle.js"></script>
 <script src="/uv/uv.config.js"></script>
