@@ -92,7 +92,7 @@
   <script>
     // Function to update the "Site Up Time" counter
     function updateSiteUpTime() {
-      const startTime = new Date('2024-04-07T00:00:00Z'); // Set your site's start time (Sunday, April 7, 2024)
+      const startTime = new Date('2024-04-07T00:00:00Z'); // Start time set to April 7, 2024
       const currentTime = new Date();
       const diff = currentTime - startTime;
 
@@ -116,6 +116,14 @@
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
       document.getElementById('shutdown-time').textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+
+      if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+        // Redirect to Google after 10 seconds if countdown reaches zero
+        setTimeout(() => {
+          alert("V2 updating...");
+          window.location.href = "https://www.google.com";
+        }, 10000);
+      }
     }
 
     // Update counters immediately on page load
