@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics</title>
+  <style>
+    /* Add CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #3761a8; /* Default blue background */
+      color: white;
+      overflow: hidden; /* Hide overflow to contain the background effect */
+    }
+
+    .stat-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stat-box {
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 0, 0, 0.5); /* Red with transparency */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-img {
+      width: 150px; /* Adjust size as needed */
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    /* Background effect styles */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      top: -20px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2); /* White with transparency */
+      animation: floatBubble linear infinite;
+    }
+
+    @keyframes floatBubble {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-100vh) scale(0.8);
+      }
+      100% {
+        transform: translateY(-200vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background effect using CSS animation -->
+  <div class="background"></div>
+
+  <div class="stat-container">
+    <img class="logo-img" src="https://static.vecteezy.com/system/resources/thumbnails/017/856/899/small/financial-business-statistics-with-bar-graph-and-candlestick-chart-show-stock-market-price-and-effective-earning-on-blue-background-vector.jpg" alt="Statistics Logo">
+    
+    <div class="stat-box" id="site-up-time">
+      <h2>How long the Site Has Been Up</h2>
+      <p id="up-time"></p>
+    </div>
+
+    <div class="stat-box" id="v2-shutdown">
+      <h2>V2 Shutdown</h2>
+      <p id="shutdown-time"></p>
+    </div>
+  </div>
+
+  <script>
+    // Function to update the "Site Up Time" counter
+    function updateSiteUpTime() {
+      const startTime = new Date('2024-01-01T00:00:00Z'); // Set your site's start time
+      const currentTime = new Date();
+      const diff = currentTime - startTime;
+
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById('up-time').textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    }
+
+    // Function to update the "V2 Shutdown" countdown
+    function updateV2Shutdown() {
+      const shutdownDate = new Date('2024-05-07T00:00:00Z'); // Set V2 shutdown date
+      const currentTime = new Date();
+      const timeDiff = shutdownDate - currentTime;
+
+      const seconds = Math.floor((timeDiff / 1000) % 60);
+      const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+      const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+      document.getElementById('shutdown-time').textContent = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    }
+
+    // Update counters immediately on page load
+    updateSiteUpTime();
+    updateV2Shutdown();
+
+    // Update counters every second
+    setInterval(updateSiteUpTime, 1000);
+    setInterval(updateV2Shutdown, 1000);
+
+    // JavaScript for the background effect
+    const background = document.querySelector('.background');
+
+    function createBackgroundEffect() {
+      for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${Math.random() * 6 + 3}s`;
+        background.appendChild(bubble);
+      }
+    }
+
+    createBackgroundEffect();
+  </script>
+</body>
+</html>
